@@ -15,7 +15,8 @@ def solution(n, k, cmd):
             tmp = command.split()
             k += int(tmp[1])
         elif c == 'C':
-            deleted.append(arr[k])
+            deleted.append( (k, arr[k]) )
+            # deleted.append(arr[k])
             arr.remove(arr[k])
             if k == len(arr):
                 k -= 1
@@ -28,5 +29,6 @@ def solution(n, k, cmd):
                     arr.insert(i, z)
 
         print(arr)
+
 
     return answer
