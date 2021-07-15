@@ -1,51 +1,46 @@
 def solution(n, k, cmd):
     answer = ''
 
-    arr = [i for i in range(n)]
+    arr = list(range(0, n))
+    answer = ['O'] * n
     deleted = []
 
     for command in cmd:
-        if len(command) == 1:
+        if len(command) == 1 :
             if command == 'C':
-                deleted.append((k, arr[k]))
-                arr.remove(arr[k])
+                deleted.append((k, arr.pop(k)))
                 if k == len(arr):
                     k -= 1
             elif command == 'Z':
                 i, z = deleted.pop()
                 arr.insert(i, z)
-                if i <= k:
+                if i <= k :
                     k += 1
-        else:
+        else :
             c, t = command.split()
             if c == 'U':
                 k -= int(t)
             elif c == 'D':
                 k += int(t)
 
-        # if c == 'U':
+        # if command[0] == 'U':
         #     c, t = command.split()
         #     k -= int(t)
-        # elif c == 'D':
+        # elif command[0] == 'D':
         #     c, t = command.split()
         #     k += int(t)
-        # elif c == 'C':
-        #     deleted.append((k, arr[k]))
-        #     arr.remove(arr[k])
+        # elif command[0] == 'C':
+        #     deleted.append((k, arr.pop(k)))
         #     if k == len(arr):
         #         k -= 1
-        # elif c == 'Z':
+        # elif command[0] == 'Z':
         #     (i, z) = deleted.pop()
         #     arr.insert(i, z)
         #     if i <= k:
         #         k += 1
 
-    deleted.sort(key=lambda x: (int(x[1])))
-
-    answer = ['O' for i in range(n - len(deleted))]
-
     for (i, z) in deleted:
-        answer.insert(z, 'X')
+        answer[z] = 'X'
 
     answer = ''.join(answer)
     return answer
