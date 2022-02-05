@@ -1,1 +1,0 @@
-def solution(param0):
