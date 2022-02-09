@@ -4,7 +4,7 @@ n = int(sys.stdin.readline())
 cards = {}
 
 for _ in range(n):
-    m = sys.stdin.readline().strip()
+    m = int(sys.stdin.readline().strip())
     if m in cards:
         cards[m] += 1
     else:
