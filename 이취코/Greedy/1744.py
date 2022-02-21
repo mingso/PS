@@ -7,7 +7,7 @@ nums.sort(reverse=True)
 answer = 0
 
 i = 0
-while True:
+while i < n:
     if nums[i] == 1:
         answer += 1
         i += 1
@@ -24,16 +24,12 @@ while True:
         minus = nums[i:]
         break
 
-    if i >= n:
-        break
-
-minus.sort()
 while True:
     lenMinus = len(minus)
     if lenMinus >= 2:
         answer += minus[0] * minus[1]
-        minus.remove(minus[0])
-        minus.remove(minus[0])
+        minus.pop(0)
+        minus.pop(0)
     elif lenMinus == 1:
         answer += minus[0]
         break
