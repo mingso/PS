@@ -1,47 +1,57 @@
 import sys
 
+def cal(s, g):
+    answer = 0
+
+    if g - s > 0:
+        if u == 0:
+            return -1
+
+        retains = g - s
+
+        answer += retains // u
+        retains %= u
+        s += answer * u
+
+        if retains == 0:
+            return answer
+
+        while (g-s) % u != 0:
+            s -= d
+            answer += 1
+
+            if s < 1:
+                return -1
+
+        answer += (g-s) // u
+        return answer
+
+    elif g - s < 0:
+        retains = abs(g - s)
+        if d == 0:
+            return -1
+
+        answer += retains // d
+        retains %= d
+        s -= answer * d
+
+        if retains == 0:
+            return answer
+
+        while abs(g-s) % d != 0:
+            s += u
+            answer += 1
+
+            if s > f:
+                return -1
+
+        answer += abs(g-s) // d
+        return answer
+
+    return answer
+
 f, s, g, u, d = map(int, sys.stdin.readline().split())
 
-retains = g - s
-answer = 0
+answer = cal(s, g)
 
-if retains > 0:
-    if retains < u:
-        while retains % u != 0:
-            retains += d
-            answer += 1
-
-            if retains > f:
-                answer = 0
-                break
-
-    if retains % u == 0:
-        answer += retains // u
-    elif (retains % u) % d == 0:
-        answer += retains // u
-        answer += 1
-        answer += (retains % u)//d
-
-elif retains < 0:
-    retains = abs(retains)
-
-    if retains < d:
-        while retains % d != 0:
-            retains += u
-            answer += 1
-
-            if retains > f:
-                answer = 0
-                break
-
-    try:
-        if retains % d == 0:
-            answer += retains // d
-        elif (retains % d) % u == 0:
-            answer += retains // d
-            answer += 1
-            answer += (retains % d)//u
-    except:
-        answer = 0
-
-print(answer if answer != 0 else "use the stairs")
+print(answer if answer != -1 else "use the stairs")
