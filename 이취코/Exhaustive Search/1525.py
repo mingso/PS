@@ -1,18 +1,40 @@
+import copy
 import sys
-E, S, M = map(int, sys.stdin.readline().split())
-e, s, m = 1, 1, 1
-answer = 1
+from collections import deque
 
-while (E, S, M) != (e, s, m):
-    e = (e + 1) % 15
-    if e == 0:
-        e = 15
-    s = (s + 1) % 28
-    if s == 0:
-        s = 28
-    m = (m + 1) % 19
-    if m == 0:
-        m = 19
-    answer += 1
+def BFS():
+    queue = deque([puzzle])
+    dist[puzzle] = 0
 
-print(answer)
+    while queue:
+        pzzl = queue.popleft()
+
+        if pzzl == answer:
+            return dist[pzzl]
+
+        i = pzzl.find('0')
+        x, y = i // 3, i % 3
+
+        for k in range(4):
+            X = x + dx[k]
+            Y = y + dy[k]
+            if 0 <= X < 3 and 0 <= Y < 3:
+                pzz = list(pzzl)
+                pzz[x*3 + y] = pzz[X*3 + Y]
+                pzz[X*3 + Y] = '0'
+                pzz = ''.join(pzz)
+                if not dist.get(pzz) or dist[pzz] > dist[pzzl] + 1:
+                    dist[pzz] = dist[pzzl] + 1
+                    queue.append(pzz)
+
+    return -1
+
+
+dx = [0, 0, 1, -1]
+dy = [1, -1, 0, 0]
+
+puzzle = ''.join(sum([list(sys.stdin.readline().split()) for _ in range(3)], []))
+answer = '123456780'
+dist = dict()
+
+print(BFS())
